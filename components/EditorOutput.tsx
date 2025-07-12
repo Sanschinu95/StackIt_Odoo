@@ -143,23 +143,54 @@ const EditorOutput: React.FC<EditorOutputProps> = ({ data }) => {
       switch (block.type) {
         case 'header':
           if (block.data && block.data.text) {
-            const Tag = `h${block.data.level || 2}` as keyof JSX.IntrinsicElements;
-            return (
-              <Tag 
-                key={index} 
-                style={{ 
-                  margin: '16px 0 8px 0', 
-                  color: '#fff', 
-                  fontWeight: 600,
-                  fontSize: block.data.level === 1 ? '2rem' : 
-                           block.data.level === 2 ? '1.5rem' : 
-                           block.data.level === 3 ? '1.25rem' : '1.1rem',
-                  lineHeight: '1.3'
-                }}
-              >
-                {renderRichText(block.data.text)}
-              </Tag>
-            );
+            const headerLevel = block.data.level || 2;
+            const headerStyle = {
+              margin: '16px 0 8px 0' as const,
+              color: '#fff' as const,
+              fontWeight: 600 as const,
+              fontSize: headerLevel === 1 ? '2rem' : 
+                       headerLevel === 2 ? '1.5rem' : 
+                       headerLevel === 3 ? '1.25rem' : '1.1rem',
+              lineHeight: '1.3' as const
+            };
+
+            if (headerLevel === 1) {
+              return (
+                <h1 key={index} style={headerStyle}>
+                  {renderRichText(block.data.text)}
+                </h1>
+              );
+            } else if (headerLevel === 2) {
+              return (
+                <h2 key={index} style={headerStyle}>
+                  {renderRichText(block.data.text)}
+                </h2>
+              );
+            } else if (headerLevel === 3) {
+              return (
+                <h3 key={index} style={headerStyle}>
+                  {renderRichText(block.data.text)}
+                </h3>
+              );
+            } else if (headerLevel === 4) {
+              return (
+                <h4 key={index} style={headerStyle}>
+                  {renderRichText(block.data.text)}
+                </h4>
+              );
+            } else if (headerLevel === 5) {
+              return (
+                <h5 key={index} style={headerStyle}>
+                  {renderRichText(block.data.text)}
+                </h5>
+              );
+            } else {
+              return (
+                <h6 key={index} style={headerStyle}>
+                  {renderRichText(block.data.text)}
+                </h6>
+              );
+            }
           }
           return renderFallbackBlock(block, index);
 

@@ -2,20 +2,21 @@
 import { useState, useRef, useEffect } from "react";
 import { Box, Typography, Button } from "@mui/material";
 
-// Import Editor.js directly
-import EditorJS from "@editorjs/editorjs";
-import Paragraph from "@editorjs/paragraph";
-
 export default function TestEditorPage() {
   const [editorReady, setEditorReady] = useState(false);
   const [error, setError] = useState("");
+  const [isClient, setIsClient] = useState(false);
   const editorRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!editorRef.current && document.getElementById("test-editor")) {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient && !editorRef.current && document.getElementById("test-editor")) {
       initializeEditor();
     }
-  }, []);
+  }, [isClient]);
 
   const initializeEditor = async () => {
     try {
@@ -26,15 +27,17 @@ export default function TestEditorPage() {
         throw new Error('Editor holder element not found');
       }
       
-      editorRef.current = new EditorJS({
+      const EditorJSModule = await import("@editorjs/editorjs");
+      const ParagraphModule = await import("@editorjs/paragraph");
+      
+      const config: any = {
         holder: "test-editor",
         tools: {
           paragraph: {
-            class: Paragraph,
+            class: ParagraphModule.default,
             config: {
               placeholder: 'Test paragraph...',
-              preserveBlank: true,
-              keepBlank: true
+              preserveBlank: true
             }
           }
         },
@@ -54,7 +57,9 @@ export default function TestEditorPage() {
             }
           ]
         }
-      });
+      };
+      
+      editorRef.current = new EditorJSModule.default(config);
     } catch (error: any) {
       console.error('Error initializing test editor:', error);
       setError(error.message);
@@ -73,6 +78,19 @@ export default function TestEditorPage() {
       }
     }
   };
+
+  if (!isClient) {
+    return (
+      <Box sx={{ maxWidth: 800, mx: 'auto', p: 4 }}>
+        <Typography variant="h4" sx={{ color: '#fff', mb: 3 }}>
+          Editor.js Test Page
+        </Typography>
+        <Typography sx={{ color: '#b3b3b3' }}>
+          Loading...
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ maxWidth: 800, mx: 'auto', p: 4 }}>

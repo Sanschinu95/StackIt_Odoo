@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, models } from 'mongoose';
 
 export interface IAnswer extends Document {
-  content: string;
+  content: any; // changed from string to any
   user: mongoose.Types.ObjectId;
   question: mongoose.Types.ObjectId;
   votes: number;
@@ -10,7 +10,7 @@ export interface IAnswer extends Document {
 }
 
 const AnswerSchema = new Schema<IAnswer>({
-  content: { type: String, required: true },
+  content: { type: Schema.Types.Mixed, required: true }, // changed from String to Mixed
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   question: { type: Schema.Types.ObjectId, ref: 'Question', required: true },
   votes: { type: Number, default: 0 },

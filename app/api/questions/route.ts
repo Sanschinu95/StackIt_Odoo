@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { dbConnect } from "@/lib/dbConnect";
 import Question from "@/models/Question";
+import User from "@/models/User";
+import Answer from "@/models/Answer";
 import { geminiService } from "@/lib/gemini";
 
 export async function GET(request: NextRequest) {
