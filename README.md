@@ -28,12 +28,12 @@ StackIt is a minimal question-and-answer platform for collaborative learning and
 <<<<<<< HEAD
 ## Environment Variables
 
-Create a `.env.local` file in the root with:
+Create a `.env` file in the root with:
 
 ```
-DATABASE_URL="mongodb+srv://guruji:guruji1234@cluster0.f3kxw.mongodb.net/gurueternity?retryWrites=true&w=majority&appName=Cluster0"
-NEXTAUTH_SECRET="terabhaiseedheguruji"
-GEMINI_API_KEY="AIzaSyCOmP0hVH11JOWFiWp4tK-trxpHEGArpiI"
+DATABASE_URL=""
+NEXTAUTH_SECRET=""
+GEMINI_API_KEY=""
 ```
 
 ## Getting Started
