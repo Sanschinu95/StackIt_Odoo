@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,37 +6,17 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
-=======
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
->>>>>>> 2871b4cb1e9ac8826c8e3115429571c97adbe100
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-<<<<<<< HEAD
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
-=======
-    --background: #0a0a0a;
-    --foreground: #ededed;
->>>>>>> 2871b4cb1e9ac8826c8e3115429571c97adbe100
   }
 }
 
 body {
-<<<<<<< HEAD
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -256,7 +235,6 @@ body {
   color: #fff !important;
 }
 
-/* Placeholder Styling */
 .ce-block--selected .ce-block__content {
   background: rgba(45, 123, 229, 0.1) !important;
   border-radius: 4px !important;
@@ -267,24 +245,22 @@ body {
   font-style: italic !important;
 }
 
-/* Link Tool Styling */
+/* Link Tool */
 .ce-link-tool__content {
   background: #181920 !important;
   border: 1px solid #333 !important;
   border-radius: 8px !important;
-  padding: 12px !important;
 }
 
 .ce-link-tool__input-holder {
-  margin-bottom: 8px !important;
+  background: #23242b !important;
 }
 
 .ce-link-tool__input {
   background: #23242b !important;
-  border: 1px solid #333 !important;
   color: #e0e0e0 !important;
+  border: 1px solid #333 !important;
   border-radius: 4px !important;
-  padding: 8px 12px !important;
 }
 
 .ce-link-tool__input:focus {
@@ -297,7 +273,6 @@ body {
   color: #fff !important;
   border: none !important;
   border-radius: 4px !important;
-  padding: 8px 16px !important;
 }
 
 .ce-link-tool__button:hover {
@@ -307,9 +282,9 @@ body {
 /* Table Styling */
 .ce-table__cell {
   background: #23242b !important;
-  border: 1px solid #333 !important;
   color: #e0e0e0 !important;
-  padding: 8px 12px !important;
+  border: 1px solid #333 !important;
+  padding: 8px !important;
 }
 
 .ce-table__cell--selected {
@@ -322,8 +297,6 @@ body {
   color: #fff !important;
   border: none !important;
   border-radius: 4px !important;
-  padding: 4px 8px !important;
-  font-size: 12px !important;
 }
 
 .ce-table__add-row:hover,
@@ -331,49 +304,48 @@ body {
   background: #1e5bb8 !important;
 }
 
-/* Checklist Styling */
+/* Checklist */
 .ce-checklist__item {
+  color: #e0e0e0 !important;
+  margin: 8px 0 !important;
   display: flex !important;
-  align-items: flex-start !important;
-  margin: 4px 0 !important;
-  gap: 8px !important;
+  align-items: center !important;
 }
 
 .ce-checklist__item__checkbox {
-  margin-top: 2px !important;
+  margin-right: 8px !important;
   accent-color: #2d7be5 !important;
 }
 
 .ce-checklist__item__text {
   color: #e0e0e0 !important;
-  flex: 1 !important;
 }
 
 .ce-checklist__item--checked .ce-checklist__item__text {
   text-decoration: line-through !important;
-  opacity: 0.7 !important;
+  color: #666 !important;
 }
 
-/* Quote Styling */
+/* Quote */
 .ce-quote__text {
   color: #e0e0e0 !important;
   font-style: italic !important;
-  margin-bottom: 8px !important;
+  font-size: 1.1rem !important;
 }
 
 .ce-quote__caption {
   color: #b3b3b3 !important;
   font-size: 0.9rem !important;
-  font-style: normal !important;
+  margin-top: 8px !important;
 }
 
-/* Code Block Styling */
+/* Code Block */
 .ce-code__textarea {
   background: #181920 !important;
   color: #e0e0e0 !important;
   border: 1px solid #333 !important;
   border-radius: 8px !important;
-  font-family: monospace !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
   font-size: 0.9rem !important;
   line-height: 1.5 !important;
   padding: 16px !important;
@@ -384,14 +356,14 @@ body {
   outline: none !important;
 }
 
-/* Responsive Design */
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .ce-toolbar__content {
-    padding: 0 12px !important;
+    padding: 8px !important;
   }
   
   .ce-block__content {
-    padding: 0 12px !important;
+    padding: 8px !important;
   }
   
   .ce-inline-toolbar {
@@ -401,9 +373,4 @@ body {
   .ce-inline-toolbar__buttons {
     flex-wrap: wrap !important;
   }
-=======
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
->>>>>>> 2871b4cb1e9ac8826c8e3115429571c97adbe100
 }
