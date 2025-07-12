@@ -152,7 +152,7 @@ questionSchema.statics.getByDifficulty = function(difficulty: string, limit = 20
 
 // Static method to get similar questions
 questionSchema.statics.getSimilar = function(questionId: string, limit = 5) {
-  return this.findById(questionId).then((question) => {
+  return this.findById(questionId).then((question: any) => {
     if (!question) return [];
     
     return this.find({

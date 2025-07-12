@@ -86,7 +86,7 @@ const DebugEditor: React.FC<DebugEditorProps> = ({ data, onFix }) => {
         <Typography variant="body2" sx={{ color: '#e0e0e0', mb: 1, fontWeight: 600 }}>
           Block Analysis:
         </Typography>
-        {analysis.blockAnalysis.map((block, index) => (
+        {Array.isArray(analysis.blockAnalysis) && analysis.blockAnalysis.map((block, index) => (
           <Box key={index} sx={{ mb: 1, p: 1, background: '#181920', borderRadius: 1 }}>
             <Typography variant="caption" sx={{ color: '#b3b3b3' }}>
               Block {block.index}: {block.type} | Data: {block.hasData ? 'Yes' : 'No'} | 

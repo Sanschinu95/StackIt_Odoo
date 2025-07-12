@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { dbConnect } from "@/lib/dbConnect";
 import Question from "@/models/Question";
 import User from "@/models/User";
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check for duplicate questions
-    let duplicateCheck = { isDuplicate: false, similarQuestions: [], confidence: 0 };
+    let duplicateCheck: { isDuplicate: boolean; similarQuestions: string[]; confidence: number } = { isDuplicate: false, similarQuestions: [], confidence: 0 };
     try {
       const existingQuestions = await Question.find({}, 'title').limit(10);
       const existingTitles = existingQuestions.map(q => q.title);
