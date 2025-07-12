@@ -16,14 +16,46 @@ export default function HomePage() {
   const [activeFilter, setActiveFilter] = useState<FilterType>('newest');
   const [tagFilter, setTagFilter] = useState<string>('all');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [voteLoading, setVoteLoading] = useState<string | null>(null);
 
+  const fetchQuestions = async (retryCount = 0) => {
+    try {
+      setError(null);
+      
+      // Create a timeout promise
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Request timeout')), 10000); // 10 second timeout
+      });
+      
+      // Create the fetch promise
+      const fetchPromise = fetch("/api/questions");
+      
+      // Race between fetch and timeout
+      const res = await Promise.race([fetchPromise, timeoutPromise]) as Response;
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      setQuestions(data.questions || []);
+    } catch (err) {
+      console.error('Error fetching questions:', err);
+      setError('Failed to load questions');
+      
+      // Retry up to 3 times with exponential backoff
+      if (retryCount < 3) {
+        setTimeout(() => {
+          fetchQuestions(retryCount + 1);
+        }, Math.pow(2, retryCount) * 1000); // 1s, 2s, 4s
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    setLoading(true);
-    fetch("/api/questions")
-      .then((res) => res.json())
-      .then((data) => setQuestions(data.questions || []))
-      .finally(() => setLoading(false));
+    fetchQuestions();
   }, []);
 
   useEffect(() => {
@@ -86,8 +118,8 @@ export default function HomePage() {
   return (
     <div style={{ width: "100%" }}>
       {/* Search and Filter Section */}
-      <Box sx={{ mb: 3 }}>
-        <Box sx={{ display: "flex", gap: 2, mb: 2, flexWrap: 'wrap' }}>
+      <Box sx={{ mb: 1 }}>
+        <Box sx={{ display: "flex", gap: 2, mb: 1, flexWrap: 'wrap' }}>
                   <TextField
           variant="outlined"
           size="small"
@@ -153,7 +185,7 @@ export default function HomePage() {
       </Box>
 
       {/* Filter Buttons */}
-      <Box sx={{ display: "flex", gap: 1, mb: 3, flexWrap: 'wrap' }}>
+      <Box sx={{ display: "flex", gap: 1, mb: 1, flexWrap: 'wrap' }}>
         <Button
           variant={activeFilter === 'newest' ? 'contained' : 'outlined'}
           onClick={() => setActiveFilter('newest')}
@@ -199,8 +231,8 @@ export default function HomePage() {
       </Box>
 
       {/* Ask New Question Button */}
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, flexWrap: 'wrap', gap: 16 }}>
-        <Typography variant="h6" sx={{ color: '#fff' }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 0, flexWrap: 'wrap', gap: 8 }}>
+        <Typography variant="h6" sx={{ color: '#fff', mb: 0, mt: 0, pt: 0, pb: 0, lineHeight: 1 }}>
           {activeFilter === 'unanswered' ? 'Unanswered Questions' : 
            activeFilter === 'popular' ? 'Most Popular Questions' : 
            'All Questions'} ({filtered.length})
@@ -217,10 +249,31 @@ export default function HomePage() {
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 200 }}>
           <CircularProgress sx={{ color: '#2d7be5' }} />
         </Box>
+      ) : error ? (
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: 200, gap: 2 }}>
+          <Typography sx={{ color: '#ff6b6b', textAlign: 'center' }}>
+            {error}
+          </Typography>
+          <Button 
+            variant="outlined" 
+            onClick={() => {
+              setLoading(true);
+              fetchQuestions();
+            }}
+            sx={{ color: '#2d7be5', borderColor: '#2d7be5' }}
+          >
+            Retry
+          </Button>
+        </Box>
       ) : (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-        {filtered.length === 0 && (
-          <div style={{ color: '#b3b3b3', textAlign: 'center', marginTop: 48 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 0, paddingTop: 0 }}>
+        {filtered.length === 0 && questions.length === 0 && (
+          <div style={{ color: '#b3b3b3', textAlign: 'center', marginTop: 0, paddingTop: 0 }}>
+            No questions found.
+          </div>
+        )}
+        {filtered.length === 0 && questions.length > 0 && (
+          <div style={{ color: '#b3b3b3', textAlign: 'center', marginTop: 0, paddingTop: 0 }}>
             {search || tagFilter !== 'all' ? 'No questions match your filters.' : 
              activeFilter === 'unanswered' ? 'No unanswered questions.' : 'No questions found.'}
           </div>
