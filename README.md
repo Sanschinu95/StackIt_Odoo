@@ -5,10 +5,10 @@
 StackIt – A Minimal Q&A Forum Platform
 ## Team Details
 
--Sanskar Shrivastava: snskrshrvstv@gmail.com
--Yash Dangi: yashdangipcmjee@gmail.com
--Mohammad Maasir: maasir554@gmail.com
--Satyam Vatsal: satyamvatsal257@gmail.com
+- Sanskar Shrivastava: snskrshrvstv@gmail.com
+- Yash Dangi: yashdangipcmjee@gmail.com
+- Mohammad Maasir: maasir554@gmail.com
+- Satyam Vatsal: satyamvatsal257@gmail.com
 
 
 
