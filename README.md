@@ -39,10 +39,6 @@ NEXTAUTH_SECRET=""
 GEMINI_API_KEY=""
 ```
 
-## Getting Started
-
-=======
-
 
 ## Getting Started
 Your root directory needs a .env file containing DATABASE_URL=" ", NEXTAUTH_SECRET=", "GEMINI_API_KEY=" "(incase you need additional autotagging & other features)
