@@ -1,6 +1,6 @@
 # [StackIt](https://stack-it-odoo-o89c.vercel.app/) – Minimal Q&A Forum Platform
 [deployment link](https://stack-it-odoo-o89c.vercel.app/)
-DEMO LOGIN CREDENTIALS:email yeash<at>me<dot>c   password: yeash
+
 
 ## Problem Statement 
 
