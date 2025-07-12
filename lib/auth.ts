@@ -4,6 +4,7 @@ import clientPromise from "@/lib/mongodb";
 import { compare } from "bcryptjs";
 import { dbConnect } from "@/lib/dbConnect";
 import { AuthOptions } from "next-auth";
+import User from "@/models/User";
 
 export const authOptions: AuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -17,7 +18,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         const { email, password } = credentials as { email?: string; password?: string };
         await dbConnect();
-        const user = await (await import('@/models/User')).default.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user || !user.password || typeof password !== 'string') return null;
         const isValid = await compare(password, user.password);
         if (!isValid) return null;
