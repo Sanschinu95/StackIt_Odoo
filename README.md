@@ -21,7 +21,7 @@ StackIt is a minimal question-and-answer platform for collaborative learning and
 
 
 ## Getting Started
-
+0. Your root directory needs a .env file containing DATABASE_URL=" ", NEXTAUTH_SECRET=", "GEMINI_API_KEY=" "(incase you need additional autotagging & other features)
 1. Install dependencies: `npm install`
 2. Run the development server: `npm run dev`
 3. Open [http://localhost:3000](http://localhost:3000) to view the app.
