@@ -21,9 +21,17 @@ export default function AnswerEditor({ questionId, onAnswerSubmitted }: AnswerEd
   const { data: session, status } = useSession();
 
   // Create a stable onChange callback
-  const handleEditorChange = useCallback((text: string) => {
-    console.log('Editor onChange called with text:', text);
-    setEditorData(text);
+  const handleEditorChange = useCallback((editorData: any) => {
+    console.log('Editor onChange called with data:', editorData);
+    // Extract text from Editor.js format
+    if (editorData && editorData.blocks && editorData.blocks.length > 0) {
+      const textContent = editorData.blocks
+        .map((block: any) => block.data?.text || '')
+        .join('\n');
+      setEditorData(textContent);
+    } else {
+      setEditorData('');
+    }
   }, []);
 
   // Create stable callbacks for editor events

@@ -60,7 +60,16 @@ export default function FastEditor({
   // Pass text content directly for onChange
   useEffect(() => {
     if (onChangeRef.current && isEditorReady) {
-      onChangeRef.current(text);
+      // Format as Editor.js data structure
+      const editorData = {
+        blocks: [
+          {
+            type: 'paragraph',
+            data: { text: text }
+          }
+        ]
+      };
+      onChangeRef.current(editorData);
     }
   }, [text, isEditorReady]);
 

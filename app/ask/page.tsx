@@ -58,13 +58,20 @@ export default function AskPage() {
       setError("Please add at least one tag");
       return false;
     }
-    if (!editorData || !editorData.blocks || editorData.blocks.length === 0) {
-      setError("Please add some content to your question");
-      return false;
+    
+    // Handle both Editor.js format and plain text format
+    let hasContent = false;
+    
+    if (typeof editorData === 'string') {
+      // Plain text format from FastEditor
+      hasContent = editorData.trim().length > 0;
+    } else if (editorData && editorData.blocks && editorData.blocks.length > 0) {
+      // Editor.js format
+      hasContent = editorData.blocks.some((block: any) => 
+        block.data && block.data.text && block.data.text.trim().length > 0
+      );
     }
-    const hasContent = editorData.blocks.some((block: any) => 
-      block.data && block.data.text && block.data.text.trim().length > 0
-    );
+    
     if (!hasContent) {
       setError("Please add some content to your question");
       return false;
@@ -86,7 +93,23 @@ export default function AskPage() {
     
     setLoading(true);
     try {
-      const description = JSON.stringify(editorData);
+      // Convert plain text to Editor.js format if needed
+      let description;
+      if (typeof editorData === 'string') {
+        // Convert plain text to Editor.js format
+        description = JSON.stringify({
+          blocks: [
+            {
+              type: 'paragraph',
+              data: { text: editorData }
+            }
+          ]
+        });
+      } else {
+        // Already in Editor.js format
+        description = JSON.stringify(editorData);
+      }
+      
       console.log('Final description:', description);
       
       const res = await fetch("/api/questions", {
