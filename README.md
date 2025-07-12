@@ -1,5 +1,5 @@
 # StackIt – Minimal Q&A Forum Platform
-
+[deployment link](https://stack-it-odoo-o89c.vercel.app/)
 <<<<<<< HEAD
 ## Problem Statement
 =======
